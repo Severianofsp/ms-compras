@@ -23,7 +23,7 @@ public class AdapterShippingResponseToShippingDTO {
 
         List<ShippingResponse> getAllShippingByDocument = shippingResponseList
                 .stream()
-                .filter(r -> getOnlyNumbers(r.getClient()).equals(getOnlyNumbers(customerResponse.getCpf())))
+                .filter(r -> getOnlyNumbers(r.getClient()).equals(getOnlyNumbers(customerResponse.getDocument())))
                 .collect(Collectors.toList());
 
         for (ShippingResponse shippingResponse : getAllShippingByDocument) {

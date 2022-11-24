@@ -28,7 +28,7 @@ public class CustomerController {
 
     @GetMapping("/recomendacao/{cliente}/tipo")
     private ResponseEntity<CustomerApiResponse> findRecommendationByWine(@PathVariable("cliente") Long id) {
-        CustomerApiResponse recommendationWine = customerService.findRecommendationByWine(id);
+        CustomerApiResponse recommendationWine = customerService.findRecommendationWine(id);
 
         if (recommendationWine == null) {
             return ResponseEntity.status(NO_CONTENT).body(null);

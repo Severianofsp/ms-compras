@@ -5,7 +5,6 @@ import com.ibm.purchases.rest.response.ShippingResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -17,7 +16,7 @@ public class ShippingService {
     private MockClient mockClient;
 
 
-    public List<ShippingResponse> findAllShipping() {
+    public List<ShippingResponse> findAllPurchases() {
         List<ShippingResponse> shippingResponses = mockClient.getShippingList();
         Collections.sort(shippingResponses);
         return shippingResponses;
@@ -28,7 +27,7 @@ public class ShippingService {
 
         return shippingResponses
                 .stream()
-                .filter(sr -> sr.getDate().get(Calendar.YEAR) == year)
+                .filter(sr -> sr.getDate().getYear() == year)
                 .max(Comparator.comparing(ShippingResponse::getTotal))
                 .orElse(new ShippingResponse());
     }

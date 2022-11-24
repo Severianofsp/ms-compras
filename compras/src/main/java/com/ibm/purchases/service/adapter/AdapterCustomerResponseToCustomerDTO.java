@@ -21,8 +21,8 @@ public class AdapterCustomerResponseToCustomerDTO {
         for (CustomerResponse customerResponse : customerResponseList) {
             CustomerDTO customerDTO = CustomerDTO.builder()
                     .id(customerResponse.getId())
-                    .document(customerResponse.getCpf())
-                    .name(customerResponse.getNome())
+                    .document(customerResponse.getDocument())
+                    .name(customerResponse.getName())
                     .purchases(adapterShippingResponseToShippingDTO.adapter(customerResponse, shippingResponseList))
                     .build();
             customerDTOList.add(customerDTO);

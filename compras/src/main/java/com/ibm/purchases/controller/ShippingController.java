@@ -20,7 +20,7 @@ public class ShippingController {
 
     @GetMapping("/compras")
     private ResponseEntity<List<ShippingResponse>> findAllShipping() {
-        List<ShippingResponse> allShipping = shippingService.findAllShipping();
+        List<ShippingResponse> allShipping = shippingService.findAllPurchases();
         return ResponseEntity.ok().body(allShipping);
     }
 

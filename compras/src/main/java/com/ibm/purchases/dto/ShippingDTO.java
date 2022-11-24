@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -16,7 +16,7 @@ import java.util.List;
 public class ShippingDTO {
 
     private String code;
-    private Calendar date;
+    private LocalDate date;
     private List<ShippingItemDTO> items;
     private BigDecimal total;
 }

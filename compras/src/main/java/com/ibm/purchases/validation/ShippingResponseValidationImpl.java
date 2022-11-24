@@ -1,6 +1,6 @@
 package com.ibm.purchases.validation;
 
-import com.ibm.purchases.rest.response.ShippingItem;
+import com.ibm.purchases.rest.response.ShippingItemResponse;
 import com.ibm.purchases.rest.response.ShippingResponse;
 
 import javax.validation.ConstraintValidator;
@@ -20,7 +20,19 @@ public class ShippingResponseValidationImpl implements ConstraintValidator<Shipp
 
         recalculeTotal(value);
 
+        formatDocument(value);
+
         return true;
+    }
+
+    private void formatDocument(ShippingResponse value) {
+        int documentLength = value.getClient().length();
+        if(documentLength == 15){
+            value.setClient(
+                    value
+                            .getClient()
+                            .substring(1,documentLength));
+        }
     }
 
     private void recalculeTotal(ShippingResponse value) {
@@ -31,7 +43,7 @@ public class ShippingResponseValidationImpl implements ConstraintValidator<Shipp
         if (value.getItems().size() > 0) {
             BigDecimal total = value
                     .getItems().stream()
-                    .map(ShippingItem::getPrice)
+                    .map(ShippingItemResponse::getPrice)
                     .reduce(ZERO, BigDecimal::add);
 
             value.setTotal(total);

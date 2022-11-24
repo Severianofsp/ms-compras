@@ -42,9 +42,10 @@ public class CustomerService {
     }
 
     public List<CustomerResponse> getLoyalCustomers(List<CustomerDTO> customerDTOList) {
-
         customerDTOList.sort(new CustomComparator());
-        List<CustomerDTO> customerTopList = customerDTOList.subList(0, 3);
+
+        int size = Math.min(customerDTOList.size(), 3);
+        List<CustomerDTO> customerTopList = customerDTOList.subList(0, size);
 
         return customerTopList.stream()
                 .map(CustomerResponse::new)
@@ -53,20 +54,20 @@ public class CustomerService {
 
     public List<CustomerDTO> getCustomerWithPurchase() {
         List<CustomerResponse> clientList = mockClient.getClientList();
-        List<ShippingResponse> shippingResponses = shippingService.findAllShipping();
+        List<ShippingResponse> shippingResponses = shippingService.findAllPurchases();
 
         return adapterCustomerResponseToCustomerDTO
                 .adapter(clientList, shippingResponses);
     }
 
-    public CustomerApiResponse findRecommendationByWine(Long id) {
+    public CustomerApiResponse findRecommendationWine(Long id) {
 
         List<CustomerDTO> customerDTOList = customerDTOValidation
                 .validCustomer(getCustomerWithPurchase());
 
         CustomerDTO customerDTO = findCustomerById(id, customerDTOList);
 
-        if( customerDTO == null) return null;
+        if (customerDTO == null) return null;
 
         return getRecommendation(customerDTO);
     }
